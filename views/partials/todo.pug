@@ -9,7 +9,7 @@ block content
     .col-12
         if todoId
             
-            form(method="post" action='/todo/edit/'+todoId._id)
+            form(method="post" enctype="multipart/form-data" action='/todo/edit/'+todoId._id)
                 input(type='text' class="form-control mb-3" name="todo" placeholder="Nama aktifitas"  value=todoId.name )
                 input(type='text' class="form-control mb-3" name="deskripsi" placeholder="Deskripsi aktifitas" value=todoId.description)
                 <img  alt="foto" src="/images/uploads/#{todoId.photo}" style="height:200px; width: 300px">

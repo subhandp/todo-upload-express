@@ -77,6 +77,9 @@ class TodosController {
         let val = undefined;
         try {
             if (req.file) {
+                const todos = await findOne(Todos, { _id: req.params.id });
+                photoPath = photoPath + todos.photo
+                fs.unlinkSync(photoPath)
                 val = { name: req.body.todo, description: req.body.deskripsi, photo: req.file.filename };
             } else {
                 val = { name: req.body.todo, description: req.body.deskripsi };

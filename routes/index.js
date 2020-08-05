@@ -7,7 +7,6 @@ const path = require('path');
 /* GET home page. */
 
 router.get("/", async(req, res) => {
-    // console.log(path.join(__dirname, './../public/images/uploads/'));
     const todolist = await find(Todos)
         .then((response) => {
             console.log(response)

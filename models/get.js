@@ -1,5 +1,3 @@
-var { Todos } = require('./todoSchema')
-
 const find = async(model, params = {}) => {
     return await model.find(params);
 }

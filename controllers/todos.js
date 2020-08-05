@@ -1,5 +1,6 @@
 const fs = require('fs')
 const { find, findOne } = require('../models/get')
+const { save } = require('../models/crud')
 const { Todos } = require('../models/todoSchema')
 const path = require('path');
 let photoPath = path.join(__dirname, './../public/images/uploads/');
@@ -7,17 +8,14 @@ let photoPath = path.join(__dirname, './../public/images/uploads/');
 class TodosController {
 
     static async create(req, res) {
-        const todo = new Todos({ name: req.body.todo, description: req.body.deskripsi, photo: req.file.filename });
-        try {
-            await todo.save((err, todo) => {
-                console.log("saved");
-            });
-            res.redirect('back');
-        } catch (err) {
-            console.log(err)
+        const result = await save(Todos, { name: req.body.todo, description: req.body.deskripsi, photo: req.file.filename })
+        if (result)
+            res.redirect('back')
+        else {
             console.log('Kesalahan, data gagal ditambahkan')
-            res.redirect('back');
+            console.log(result)
         }
+
     }
 
     static async delete(req, res) {

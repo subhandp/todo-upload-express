@@ -1,0 +1,44 @@
+extends ../layouts.pug
+
+block content
+    .col-12
+        if todoId
+            h1 Edit Todo
+        else if todo
+            h1 Tambah Todo
+    .col-12
+        if todoId
+            
+            form(method="post" action='/todo/edit/'+todoId._id)
+                input(type='text' class="form-control mb-3" name="todo" placeholder="Nama aktifitas"  value=todoId.name )
+                input(type='text' class="form-control mb-3" name="deskripsi" placeholder="Deskripsi aktifitas" value=todoId.description)
+                <img  alt="foto" src="/images/uploads/#{todoId.photo}" style="height:200px; width: 300px">
+                .form-group
+                    label(for="photo") Update Foto Todo
+                    input.form-control(type="file"  name="photo")
+                button(type="submit" class="btn btn-primary") Update 
+                a(class='btn btn-warning button' href='/') Back
+        else if todo
+             form(method="post" action='/todo/create' enctype="multipart/form-data")
+                input(type='text' class="form-control mb-3" name="todo" placeholder="Nama aktifitas")                                                                                                                                                                                                                                                                                                                                                                 
+                input(type='text' class="form-control mb-3" name="deskripsi" placeholder="Deskripsi aktifitas")
+                .form-group
+                    label(for="photo") Foto Todo
+                    input.form-control(type="file"  name="photo")
+                button(type="submit" class="btn btn-primary") Kirim
+
+
+    if todo
+        .col-6
+            ul(class='list-group')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                each to in todo
+                    li(class='list-group-item')  #{to.name} - #{to.description} 
+                        if to.status
+                            span
+                                strong  (Done)
+                            a(class='btn btn-warning  btn-sm button' href='todo/doneundone/' + to._id) Set UnDone
+                        else
+                            a(class='btn btn-success btn-sm button' href='todo/doneundone/' + to._id) Set Done
+                        a(class='btn btn-primary btn-sm button' href='todo/edit/' + to._id) Edit 
+                        a(class='btn btn-danger btn-sm button' href='todo/delete/' + to._id) Delete 
+

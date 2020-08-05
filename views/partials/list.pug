@@ -1,0 +1,20 @@
+extends ../layouts.pug
+
+block content
+    if todo
+        table(class='table table-bordered')
+            thead
+                tr
+                    th Todo List
+                    th Deskripsi
+                    th Status
+            tbody
+            each to in todo
+                tr
+                    td  #{to.name} 
+                    td  #{to.description} 
+                    if to.status
+                        td SUDAH
+                    else
+                        td
+                            STRONG BELUM
